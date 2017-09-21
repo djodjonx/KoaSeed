@@ -1,10 +1,11 @@
-var Koa = require('koa');
-var Router = require('koa-router');
-var bodyParser = require('koa-bodyparser');
-var fs = require('fs')
+const Koa = require('koa');
+const Router = require('koa-router');
+const bodyParser = require('koa-bodyparser');
+const fs = require('fs')
+const cors = require('kcors');
 
-var app = new Koa();
-var router = new Router();
+const app = new Koa();
+const router = new Router();
 
 const filename = './voitures'
 const voitures = JSON.parse(fs.readFileSync(filename))
@@ -22,6 +23,7 @@ router.get('/voitures', function (ctx) {
 
 app
   .use(bodyParser())
+  .use(cors())
   .use(router.routes())
   
 app.listen(3000);
